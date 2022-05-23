@@ -1,1 +1,79 @@
-发给他发一个
+package com.company;
+import javax.swing.*;
+import java.awt.*;
+import java.awt.event.KeyEvent;
+import java.awt.event.KeyListener;
+
+public class Tertris extends JFrame implements KeyListener {
+
+    private static final int game_x=19;      //设置行数
+
+    private static final int game_y=12;      //设置列数
+
+    JTextArea[][] text;                                          //文本域数组（text定义每个格子是一个文本）
+    int [][] data;                                               //二维数组  （data定义了每个格子的值）
+
+    public void initwindow() {
+                                             //创建游戏窗口
+        this.setSize(500,650);                     //设置窗口的大小
+        this.setVisible(true);                                  //将窗口设置为可见
+        this.setLocationRelativeTo(null);                       //设置窗口居中
+        this.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);    //开机与关机
+        this.setResizable(false);                               //将窗口设置为不可改变
+        this.setTitle("俄罗斯的小方块");
+
+    }
+       public void initGamepanel(){          //初始化游戏界面
+        JPanel game_main = new JPanel();
+        game_main.setLayout(new GridLayout(game_x,game_y,1,1));
+
+        for  (int i = 0 ; i < text.length ; i++){
+            for (int j = 0 ; j < text[i].length ; j++){
+
+                text[i][j] = new JTextArea(game_x,game_y);      //设置文本域行列数
+                text[i][j].setBackground(Color.CYAN);           //设置文本域的背景颜色
+                text[i][j].addKeyListener(this);             //设置键盘监听事件
+                if (j == 0 || j == text[i].length-1 || i == text.length-1) {
+                    text[i][j].setBackground(Color.MAGENTA);    //设置背景颜色
+                    data[i][j] = 1;                             //值为1，表示有方块
+                }
+
+                 text[i][j].setEditable(false);                 //设置文本区域为不可编辑
+                 game_main.add(text[i][j]);                     //将文本区域添加到主面板上
+
+            }
+
+        }
+        this.setLayout(new BorderLayout());
+        this.add(game_main,BorderLayout.CENTER);
+
+       }
+
+    public Tertris() {
+        text = new JTextArea[game_x ][game_y];
+
+        data = new int[game_x][game_y];
+        initGamepanel();
+        initwindow();
+    }
+
+    public static void main(String[] args) {
+        Tertris tertris = new Tertris();
+
+    }
+
+    @Override
+    public void keyTyped(KeyEvent e) {
+
+    }
+
+    @Override
+    public void keyPressed(KeyEvent e) {
+
+    }
+
+    @Override
+    public void keyReleased(KeyEvent e) {
+
+    }
+}
